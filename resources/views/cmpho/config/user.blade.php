@@ -71,8 +71,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addUserLabel">
-                        <i class="fa-solid fa-plus-circle"></i>
-                        เพิ่มหน่วยบริการ
+                        <i class="fa-solid fa-user-plus"></i>
+                        เพิ่มผู้ใช้งาน
                     </h5>
                 </div>
                 <div class="modal-body">
