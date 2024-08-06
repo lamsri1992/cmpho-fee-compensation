@@ -78,11 +78,11 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label>หน่วยบริการ</label>
-                        <select class="custom-select" name="hcode">
-                            <option value="">กรุณาเลือก</option>
-                            @foreach ($data as $rs)
+                        <select class="hospital-select" name="hcode">
+                            <option></option>
+                            @foreach ($hosp as $rs)
                             <option value="{{ $rs->h_code }}">
-                                {{ $rs->h_name }}
+                                {{ $rs->h_code.' - '.$rs->h_name }}
                             </option>
                             @endforeach
                         </select>
@@ -167,6 +167,16 @@
             sLengthMenu: '<small>แสดง _MENU_ รายการ</small>',
             sInfoEmpty: '<small>ไม่มีข้อมูล</small>'
         },
+    });
+
+    $(document).ready(function() {
+        $('.hospital-select').select2(
+            {
+                placeholder: 'กรุณาเลือกหน่วยบริการ',
+                width: '100%',
+                dropdownParent: $("#addUser")
+            }
+        );
     });
 </script>
 @endsection
