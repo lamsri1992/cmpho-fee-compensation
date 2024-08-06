@@ -10,7 +10,7 @@
                         <li class="breadcrumb-item active">
                             <h3>
                                 <i class="nav-icon fa-solid fa-clipboard-list"></i>
-                                อัตราจ่ายค่าบริการ
+                                อัตราจ่ายค่ายา
                             </h3>
                         </li>
                     </ol>
@@ -25,10 +25,10 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title">อัตราจ่ายค่าบริการ <small class="text-danger">Update มีนาคม 2567</small></h5>
+                            <h5 class="card-title">อัตราจ่ายค่ายา</h5>
                         </div>
                         <div class="card-body">
-                            <table id="nhso_table" class="table table-striped table-borderless table-bordered nowrap" style="width:100%">
+                            <table id="drug_table" class="table table-striped table-borderless table-bordered nowrap" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th class="text-center">No</th>
@@ -41,11 +41,11 @@
                                 <tbody>
                                     @foreach ($data as $rs)
                                     <tr>
-                                        <td class="text-center">{{ $rs->nhso_id }}</td>
-                                        <td class="text-center">{{ $rs->nhso_code }}</td>
-                                        <td>{{ $rs->nhso_name }}</td>
-                                        <td class="text-center">{{ $rs->nhso_unit }}</td>
-                                        <td>{{ number_format($rs->nhso_cost,2) }}</td>
+                                        <td class="text-center">{{ $rs->drug_id }}</td>
+                                        <td class="text-center">{{ $rs->drug_code }}</td>
+                                        <td>{{ $rs->drug_name }}</td>
+                                        <td class="text-center">{{ $rs->drug_unit }}</td>
+                                        <td>{{ number_format($rs->drug_pay_rate,2) }}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -60,7 +60,7 @@
 @endsection
 @section('script')
 <script>
-    new DataTable('#nhso_table', {
+    new DataTable('#drug_table', {
         layout: {
             topStart: {
                 buttons: [

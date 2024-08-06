@@ -34,4 +34,10 @@ class dashboard extends Controller
         $data = DB::table('nhso')->get();
         return view('nhso',['data'=>$data]);
     }
+
+    public function drug()
+    {
+        $data = DB::table('nhso_drug')->get();
+        return view('drug',['data'=>$data]);
+    }
 }
