@@ -52,6 +52,31 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item {{ request()->is('nhso*') ? 'menu-is-opening menu-open':'' }}">
+                    <a href="#" class="nav-link {{ request()->is('nhso*') ? 'active':'' }}">
+                        <i class="nav-icon fa-solid fa-clipboard-list"></i>
+                        <p>
+                            เกณฑ์ราคา สปสช.
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('nhso.list') }}"
+                                class="nav-link {{ request()->is('nhso/list') ? 'active':'' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>อัตราจ่ายค่าบริการ</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('nhso.drug') }}" 
+                                class="nav-link {{ request()->is('debtor/create*') ? 'active':'' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>อัตราจ่ายค่ายา</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </div>
