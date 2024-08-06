@@ -27,6 +27,31 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item {{ request()->is('cmpho/config*') ? 'menu-is-opening menu-open':'' }}">
+                    <a href="#" class="nav-link {{ request()->is('cmpho/config*') ? 'active':'' }}">
+                        <i class="nav-icon fas fa-cog"></i>
+                        <p>
+                            ตั้งค่าระบบ
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('config.hospital') }}" 
+                                class="nav-link {{ request()->is('cmpho/config/hospital*') ? 'active':'' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>ข้อมูลหน่วยบริการ</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('config.users') }}"
+                                class="nav-link {{ request()->is('cmpho/config/users*') ? 'active':'' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>ข้อมูลผู้ใช้งาน</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </div>

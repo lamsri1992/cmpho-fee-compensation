@@ -163,6 +163,31 @@ class debtor extends Controller
         return view('debtor.show',['data'=>$data,'list'=>$list]);
     }
 
+    public function search(Request $request)
+    {
+        $data = DB::table('claim_list')
+            ->select('vn','visitdate','hospmain','hcode','name','hn',
+            'h_name','auth_code','person_id','age','sex_name','sex_icon')
+            ->leftjoin('nhso','nhso.nhso_code','claim_list.fs_code')
+            ->leftjoin('hospital','hospital.h_code','claim_list.hospmain')
+            ->leftjoin('sex_type','sex_type.sex_id','claim_list.sex')
+            ->where('vn', $request->vn)
+            ->first();
+
+        $list = DB::table('claim_list')
+            ->select('icd10','fs_code','total','nhso_code','nhso_name','nhso_unit','nhso_cost')
+            ->leftjoin('nhso','nhso.nhso_code','claim_list.fs_code')
+            ->leftjoin('hospital','hospital.h_code','claim_list.hospmain')
+            ->where('vn', $request->vn)
+            ->get();
+
+        if(isset($data)){
+            return view('debtor.show',['data'=>$data,'list'=>$list]);
+        }else{
+            return back()->with('error','ไม่พบ VN : '.$request->vn);
+        }
+    }
+
     public function send()
     {
         $currentDate = date('Y-m-d');

@@ -11,11 +11,11 @@ class dataController extends Controller
 {
     public function index()
     {
-        $sql = "SELECT DISTINCT(hcode),hospital.h_name,COUNT(trans_code) AS total
+        $sql = "SELECT DISTINCT(claim_list.hcode),hospital.h_name,COUNT(claim_list.trans_code) AS total
                 FROM claim_list
                 LEFT JOIN hospital ON hospital.h_code = claim_list.hcode
                 WHERE p_status = '2'
-                GROUP BY hcode,trans_code";
+                GROUP BY claim_list.hcode,hospital.h_name,claim_list.trans_code";
          $data = DB::select($sql);
         return view('cmpho.welcome',['data'=>$data]);
     }

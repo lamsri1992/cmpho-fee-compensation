@@ -21,4 +21,5 @@ require __DIR__.'/auth.php';
 require __DIR__.'/dashboard.php';
 require __DIR__.'/cmpho.php';
 require __DIR__.'/debtor.php';
+require __DIR__.'/creditor.php';
 require __DIR__.'/twfiles.php';

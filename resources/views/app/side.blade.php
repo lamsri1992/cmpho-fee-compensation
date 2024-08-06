@@ -53,8 +53,8 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#"
-                        class="nav-link ">
+                    <a href="{{ route('creditor.index') }}"
+                        class="nav-link {{ request()->is('creditor*') ? 'active':'' }}">
                         <i class="nav-icon fa-solid fa-comment-dollar"></i>
                         <p>
                             ข้อมูลเจ้าหนี้

@@ -14,7 +14,18 @@ class dashboard extends Controller
         if(Auth::user()->mode == 'Y'){
             return redirect()->route('cmpho.index');
         }else{
-            return view('welcome');
+            $hcode = Auth::user()->hcode;
+            $deb_cost = DB::table('claim_list')->select(DB::raw('SUM(total) as total'))->where('hcode',$hcode)->first();
+            $due_cost = DB::table('claim_list')->select(DB::raw('SUM(total) as total'))->where('hospmain',$hcode)->first();
+            $deb_count = DB::table('claim_list')->where('hcode',$hcode)->count();
+            $due_count = DB::table('claim_list')->where('hospmain',$hcode)->count();
+            return view('welcome',
+            [
+                'deb_cost' => $deb_cost,
+                'due_cost' => $due_cost,
+                'deb_count' => $deb_count,
+                'due_count' => $due_count,
+            ]);
         }
     }
     

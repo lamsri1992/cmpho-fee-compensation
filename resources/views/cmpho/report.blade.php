@@ -25,7 +25,7 @@
                             </h5>
                         </div>
                         <div class="card-body">
-                            <table id="nhso_table" class="display nowarp" style="width: 100%;">
+                            <table id="nhso_table" class="table table-striped table-bordered nowrap" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th class="text-center">รหัส รพ.เจ้าหนี้</th>
