@@ -22,7 +22,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3 col-6">
-                    <div class="small-box bg-info">
+                    <div class="small-box bg-success">
                         <div class="inner">
                             <h3>{{ number_format($deb_cost->total,2) }} <sup style="font-size: 20px">บาท</sup></h3>
                             <p>ยอดลูกหนี้ทั้งหมด</p>
@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-6">
-                    <div class="small-box bg-success">
+                    <div class="small-box bg-info">
                         <div class="inner">
                             <h3>{{ number_format($due_cost->total,2) }} <sup style="font-size: 20px">บาท</sup></h3>
                             <p>ยอดเจ้าหนี้ทั้งหมด</p>
@@ -76,9 +76,7 @@
                             </h5>
                         </div>
                         <div class="card-body">
-                            <p class="card-text">
-                                Show Graph
-                            </p>
+                            <canvas id="debtorChart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -91,9 +89,7 @@
                             </h5>
                         </div>
                         <div class="card-body">
-                            <p class="card-text">
-                                Show Graph
-                            </p>
+                            <canvas id="creditorChart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -103,5 +99,76 @@
 </div>
 @endsection
 @section('script')
+<script>
+    $(document).ready(function () {
+        Chart.defaults.font.family = 'Noto Sans Thai';
+    });
 
+    const labels = [
+        @foreach ($creditor as $res)
+        [ "{{ $res->h_name }}"],
+        @endforeach
+    ];
+  
+    const config = {
+      type: 'bar',
+      data: {
+        datasets: [{
+            label: 'ยอดเจ้าหนี้',
+            data: [
+                @foreach ($creditor as $res)
+                "{{ $res->paid }}",
+                @endforeach
+            ],
+            backgroundColor: [
+                '#17a2b8',
+            ],
+            borderColor: [
+                '#17a2b8',
+            ],
+        }],
+        labels: labels
+    },
+      options: {}
+    };
+
+    const creditorChart = new Chart(
+        document.getElementById('creditorChart'),
+        config
+    );
+
+    // MOO
+    const labels2 = [
+        @foreach ($debtor as $res)
+        [ "{{ $res->h_name }}"],
+        @endforeach
+    ];
+  
+    const config2 = {
+      type: 'bar',
+      data: {
+        datasets: [{
+            label: 'ยอดลูกหนี้',
+            data: [
+                @foreach ($debtor as $res)
+                "{{ $res->paid }}",
+                @endforeach
+            ],
+            backgroundColor: [
+                '#2dce89',
+            ],
+            borderColor: [
+                '#2dce89',
+            ],
+        }],
+        labels: labels2
+    },
+      options: {}
+    };
+
+    const debtorChart = new Chart(
+        document.getElementById('debtorChart'),
+        config2
+    );
+</script>
 @endsection
