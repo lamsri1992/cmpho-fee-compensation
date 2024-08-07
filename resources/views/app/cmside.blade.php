@@ -70,7 +70,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('nhso.drug') }}" 
-                                class="nav-link {{ request()->is('debtor/create*') ? 'active':'' }}">
+                                class="nav-link {{ request()->is('nhso/drug*') ? 'active':'' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>อัตราจ่ายค่ายา</p>
                             </a>
