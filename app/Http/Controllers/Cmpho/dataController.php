@@ -48,8 +48,8 @@ class dataController extends Controller
                 LEFT JOIN hospital as hospital_b ON hospital_b.h_code = claim_list.hospmain
                 WHERE claim_list.p_status = 3
                 AND MONTH(claim_list.process_date) = $request->month
-                GROUP BY claim_list.trans_code,claim_list.hcode,claim_list.hospmain
-                ORDER BY hospital_a.h_code ASC";
+                GROUP BY claim_list.trans_code,claim_list.hcode,claim_list.hospmain,hospital_a.h_name,hospital_b.h_name
+                ORDER BY hospital_a.h_code,hospital_b.h_code ASC";
         $data = DB::select($sql);
         $month = $request->month;
         return view('cmpho.report',['data'=>$data,'month'=>$month]);

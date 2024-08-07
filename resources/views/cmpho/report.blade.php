@@ -87,6 +87,7 @@
             [10, 25, 50, "All"]
         ],
         responsive: true,
+        ordering: false,
         // scrollX: true,
         rowReorder: {
             selector: 'td:nth-child(2)'

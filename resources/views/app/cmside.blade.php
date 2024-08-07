@@ -96,7 +96,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <select name="month" class="custom-select">
+                    <select name="month" class="custom-select" @required(true)>
                         <option value="">-- เลือกเดือน --</option>
                         <option value="01">มกราคม</option>
                         <option value="02">กุมภาพันธ์</option>

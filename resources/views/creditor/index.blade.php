@@ -67,7 +67,7 @@
                                             </a>
                                         </td>
                                         <td class="text-center">{{ date("d/m/Y", strtotime($rs->visitdate)) }}</td>
-                                        <td class="text-center">{{ $rs->hospmain." : ".$rs->h_name }}</td>
+                                        <td class="text-center">{{ $rs->h_code." : ".$rs->h_name }}</td>
                                         <td class="text-center">{{ $rs->hn }}</td>
                                         <td class="text-center {{ $bg }}">
                                             <a href="#" 
