@@ -99,28 +99,26 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <p class="card-text">
-                                <table id="basicTable" class="table table-striped table-borderless table-bordered nowrap" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center">No</th>
-                                            <th class="text-center">ชื่อไฟล์</th>
-                                            <th class="text-center">วันที่นำเข้า</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @php $i = 0; @endphp
-                                        @foreach ($history as $rs)
-                                        @php $i++; @endphp
-                                        <tr>
-                                            <td class="text-center">{{ $i }}</td>
-                                            <td class="text-center">{{ $rs->ex_file }}</td>
-                                            <td class="text-center">{{ date("d/m/Y", strtotime($rs->import_date)) }}</td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </p>
+                            <table id="basicTable" class="table table-striped table-borderless table-bordered nowrap" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">No</th>
+                                        <th class="text-center">ชื่อไฟล์</th>
+                                        <th class="text-center">วันที่นำเข้า</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php $i = 0; @endphp
+                                    @foreach ($history as $rs)
+                                    @php $i++; @endphp
+                                    <tr>
+                                        <td class="text-center">{{ $i }}</td>
+                                        <td class="text-center">{{ $rs->ex_file }}</td>
+                                        <td class="text-center">{{ date("d/m/Y", strtotime($rs->import_date)) }}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

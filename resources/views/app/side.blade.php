@@ -40,7 +40,14 @@
                             <a href="{{ route('debtor.index') }}"
                                 class="nav-link {{ request()->is('debtor') || request()->is('debtor/list*') ? 'active':'' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>รายการลูกหนี้</p>
+                                <p>ข้อมูลรายการลูกหนี้</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('debtor.hospital') }}"
+                                class="nav-link {{ request()->is('debtor/hospital*') ? 'active':'' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>ลูกหนี้แยกโรงพยาบาล</p>
                             </a>
                         </li>
                         <li class="nav-item">

@@ -35,6 +35,36 @@ class debtor extends Controller
         ]);
     }
 
+    public function hospital()
+    {
+        $hcode = Auth::user()->hcode;
+        $data = DB::table('claim_list')
+                ->select('hospmain','h_name',DB::raw('SUM(total) AS total,COUNT(DISTINCT vn) AS num'))
+                ->join('hospital','h_code','claim_list.hospmain')
+                ->where('hcode','=',$hcode)
+                ->groupBy('hospmain','h_name')
+                ->get();
+        return view('debtor.hospital',
+        [
+            'data'=>$data
+        ]);
+    }
+
+    public function hospitalList(string $id)
+    {
+        $data = DB::table('claim_list')
+            ->select(DB::raw('DISTINCT vn , SUM(total) as total'),'visitdate','person_id','name','hospmain','h_name')
+            ->where('hospmain',$id)
+            ->leftjoin('hospital','hospital.h_code','claim_list.hospmain')
+            ->groupby('vn','visitdate','person_id','name','hospmain','h_name')
+            ->get();
+        return view('debtor.hospitalList',
+        [
+            'data'=>$data,
+            'id'=>$id
+        ]);
+    }
+
     public function import(Request $request) 
     {
         $hcode = Auth::user()->hcode;
