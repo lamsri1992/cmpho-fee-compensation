@@ -39,9 +39,10 @@ class debtor extends Controller
     {
         $hcode = Auth::user()->hcode;
         $data = DB::table('claim_list')
-                ->select('hospmain','h_name',DB::raw('SUM(total) AS total,COUNT(DISTINCT vn) AS num'))
+                ->select(DB::raw('COUNT(DISTINCT vn) AS num,SUM(total) AS total'),'hospmain','h_name',)
                 ->join('hospital','h_code','claim_list.hospmain')
                 ->where('hcode','=',$hcode)
+                ->where('hospmain','!=',$hcode)
                 ->groupBy('hospmain','h_name')
                 ->get();
         return view('debtor.hospital',
@@ -52,12 +53,15 @@ class debtor extends Controller
 
     public function hospitalList(string $id)
     {
+        $hcode = Auth::user()->hcode;
         $data = DB::table('claim_list')
             ->select(DB::raw('DISTINCT vn , SUM(total) as total'),'visitdate','person_id','name','hospmain','h_name')
-            ->where('hospmain',$id)
             ->leftjoin('hospital','hospital.h_code','claim_list.hospmain')
+            ->where('hcode',$hcode)
+            ->where('hospmain',$id)
             ->groupby('vn','visitdate','person_id','name','hospmain','h_name')
             ->get();
+        // dd($id,$data);
         return view('debtor.hospitalList',
         [
             'data'=>$data,

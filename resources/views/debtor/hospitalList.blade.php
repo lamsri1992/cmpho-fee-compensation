@@ -32,7 +32,7 @@
                                     <tr>
                                         <th class="text-center">วันที่</th>
                                         <th class="text-center">VN</th>
-                                        <th>CID</th>
+                                        <th class="text-center">CID</th>
                                         <th>ผู้รับบริการ</th>
                                         <th class="text-center">หน่วยบริการหลัก</th>
                                         <th class="text-right">ค่าบริการ</th>
@@ -49,7 +49,7 @@
                                                 {{ $rs->vn }}
                                             </a>
                                         </td>
-                                        <td>{{ $rs->person_id }}</td>
+                                        <td class="text-center">{{ $rs->person_id }}</td>
                                         <td>{{ $rs->name }}</td>
                                         <td class="text-center">{{ $rs->hospmain." : ".$rs->h_name }}</td>
                                         <td class="text-right text-success">
