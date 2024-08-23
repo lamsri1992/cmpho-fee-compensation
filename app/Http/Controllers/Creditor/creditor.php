@@ -23,4 +23,57 @@ class creditor extends Controller
             ->get();
         return view('creditor.index',['data'=>$data]);
     }
+    
+    public function hospital()
+    {
+        $hcode = Auth::user()->hcode;
+        $data = DB::table('claim_list')
+                ->select(DB::raw('COUNT(DISTINCT vn) AS num,SUM(total) AS total'),'hcode','h_name',)
+                ->join('hospital','h_code','claim_list.hcode')
+                ->where('hospmain',$hcode)
+                ->groupBy('hcode','h_name')
+                ->get();
+        return view('creditor.hospital',
+        [
+            'data'=>$data
+        ]);
+    }
+
+    public function hospitalList(string $id)
+    {
+        $hcode = Auth::user()->hcode;
+        $data = DB::table('claim_list')
+            ->select(DB::raw('DISTINCT vn , SUM(total) as total'),'visitdate','person_id','name','hospmain','h_name')
+            ->leftjoin('hospital','hospital.h_code','claim_list.hospmain')
+            ->where('hcode',$id)
+            ->where('hospmain',$hcode)
+            ->groupby('vn','visitdate','person_id','name','hospmain','h_name')
+            ->get();
+        return view('creditor.hospitalList',
+        [
+            'data'=>$data,
+            'id'=>$id
+        ]);
+    }
+
+    public function vn(string $id)
+    {
+        $data = DB::table('claim_list')
+            ->select('vn','visitdate','hospmain','hcode','name','hn',
+            'h_name','auth_code','person_id','age','sex_name','sex_icon')
+            ->leftjoin('nhso','nhso.nhso_code','claim_list.fs_code')
+            ->leftjoin('hospital','hospital.h_code','claim_list.hospmain')
+            ->leftjoin('sex_type','sex_type.sex_id','claim_list.sex')
+            ->where('vn', $id)
+            ->first();
+
+        $list = DB::table('claim_list')
+            ->select('icd10','fs_code','total','nhso_code','nhso_name','nhso_unit','nhso_cost')
+            ->leftjoin('nhso','nhso.nhso_code','claim_list.fs_code')
+            ->leftjoin('hospital','hospital.h_code','claim_list.hospmain')
+            ->where('vn', $id)
+            ->get();
+        return view('creditor.vn',['data'=>$data,'list'=>$list]);
+    }
+
 }

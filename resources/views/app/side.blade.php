@@ -59,14 +59,30 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('creditor.index') }}"
-                        class="nav-link {{ request()->is('creditor*') ? 'active':'' }}">
+                <li class="nav-item {{ request()->is('creditor*') ? 'menu-is-opening menu-open':'' }}">
+                    <a href="#" class="nav-link {{ request()->is('creditor*') ? 'active':'' }}">
                         <i class="nav-icon fa-solid fa-comment-dollar"></i>
                         <p>
                             ข้อมูลเจ้าหนี้
+                            <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('creditor.hospital') }}"
+                                class="nav-link {{ request()->is('creditor/hospital*') ? 'active':'' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>เจ้าหนี้แยกโรงพยาบาล</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('creditor.index') }}"
+                                class="nav-link {{ request()->is('creditor') || request()->is('creditor/list*') ? 'active':'' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>ข้อมูลรายการเจ้าหนี้</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item {{ request()->is('nhso*') ? 'menu-is-opening menu-open':'' }}">
                     <a href="#" class="nav-link {{ request()->is('nhso*') ? 'active':'' }}">
