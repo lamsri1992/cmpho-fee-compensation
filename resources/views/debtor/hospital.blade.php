@@ -31,7 +31,7 @@
                                     <tr>
                                         <th class="text-center">รหัสหน่วยบริการ</th>
                                         <th class="">หน่วยบริการ</th>
-                                        <th class="">ค่าบริการ</th>
+                                        <th class="text-right">ค่าบริการ</th>
                                         <th class="text-center">เคส</th>
                                         <th class="text-center"><i class="fa-solid fa-bars"></i></th>
                                     </tr>
@@ -41,7 +41,7 @@
                                     <tr>
                                         <td class="text-center">{{ $rs->hospmain }}</td>
                                         <td class="">{{ $rs->h_name }}</td>
-                                        <td class="">{{ number_format($rs->total,2) }}</td>
+                                        <td class="text-success text-right">{{ number_format($rs->total,2)." ฿" }}</td>
                                         <td class="text-center">{{ number_format($rs->num) }}</td>
                                         <td class="text-center">
                                             <a href="{{ route('debtor.hospital.list',$rs->hospmain) }}" class="btn btn-secondary btn-sm">

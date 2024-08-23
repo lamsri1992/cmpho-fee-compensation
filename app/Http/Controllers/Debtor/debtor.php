@@ -122,6 +122,7 @@ class debtor extends Controller
                 'name' => 'required',
                 'age' => 'required',
                 'sex' => 'required',
+                'icd10' => 'required',
             ],
             [
                 'vn.required' => 'ระบุ VN',
@@ -132,6 +133,7 @@ class debtor extends Controller
                 'name.required' => 'ระบุชื่อ-สกุล',
                 'age.required' => 'ระบุอายุ',
                 'sex.required' => 'ระบุเพศ',
+                'icd10.required' => 'ระบุ ICD10',
             ],
         );
 
@@ -148,7 +150,7 @@ class debtor extends Controller
                     'age' => $request->age,
                     'sex' => $request->sex,
                     'auth_code' => $request->auth_code,
-                    'icd10' => $value['icd10'],
+                    'icd10' => $request->icd10,
                     'fs_code' => $value['fs_code'],
                     'total' => $value['total'],
                     'hcode' => $hcode,

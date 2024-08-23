@@ -76,11 +76,14 @@
                                         <label>Authen Code</label>
                                         <input type="text" name="auth_code" value="{{ old('auth_code') }}" class="form-control">
                                     </div>
+                                    <div class="form-group col-md-12">
+                                        <label>ICD10</label>
+                                        <input type="text" name="icd10" value="{{ old('icd10') }}" class="form-control" placeholder="ระบุ ICD10 / A00 , X99 , J44">
+                                    </div>
                                     <div class="col-md-12">
                                         <table id="tableCost" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                                 <tr class="text-center">
-                                                    <th>ICD10</th>
                                                     <th>รหัสบริการ</th>
                                                     <th>ค่าใช้จ่าย</th>
                                                     <th></th>
@@ -88,10 +91,7 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td width="20%">
-                                                        <input type="text" name="addField[0][icd10]" class="form-control" placeholder="ระบุ ICD10">
-                                                    </td>
-                                                    <td width="60%">
+                                                    <td width="80%">
                                                         <input type="text" name="addField[0][fs_code]" class="form-control" placeholder="ระบุรหัสบริการ">
                                                     </td>
                                                     <td width="20%">
@@ -153,7 +153,6 @@
         ++i;
 
         $("#tableCost").append('<tr>'+
-        '<td><input id="icd10'+i+'" type="text" name="addField['+i+'][icd10]" class="form-control" placeholder="ระบุ ICD10"></div></td>'+
         '<td><input type="text" id="fs_code'+i+'" name="addField['+i+'][fs_code]" class="form-control" placeholder="ระบุรหัสบริการ"></div></td>'+
         '<td><input type="text" id="total'+i+'" name="addField['+i+'][total]" class="form-control" placeholder="ระบุค่าใช้จ่าย"></div></td>'+
         '<td><button type="button" class="btn btn-sm btn-danger remove-input-field mt-1"><i class="fa-solid fa-minus"></i></button></td>'+
