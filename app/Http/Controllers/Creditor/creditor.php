@@ -31,9 +31,28 @@ class creditor extends Controller
                 ->select(DB::raw('COUNT(DISTINCT vn) AS num,SUM(total) AS total'),'hcode','h_name',)
                 ->join('hospital','h_code','claim_list.hcode')
                 ->where('hospmain',$hcode)
+                ->where('p_status',3)
+                ->whereRaw('MONTH(created_at) = MONTH(CURDATE())')
                 ->groupBy('hcode','h_name')
                 ->get();
         return view('creditor.hospital',
+        [
+            'data'=>$data
+        ]);
+    }
+
+    public function hospitalSearch(Request $request)
+    {
+        $hcode = Auth::user()->hcode;
+        $data = DB::table('claim_list')
+                ->select(DB::raw('COUNT(DISTINCT vn) AS num,SUM(total) AS total'),'hcode','h_name',)
+                ->join('hospital','h_code','claim_list.hcode')
+                ->where('hospmain',$hcode)
+                ->where('p_status',3)
+                ->whereRaw('MONTH(created_at) = '.$request->month.'')
+                ->groupBy('hcode','h_name')
+                ->get();
+        return view('creditor.hospitalMonth',
         [
             'data'=>$data
         ]);
@@ -47,6 +66,7 @@ class creditor extends Controller
             ->leftjoin('hospital','hospital.h_code','claim_list.hospmain')
             ->where('hcode',$id)
             ->where('hospmain',$hcode)
+            ->where('p_status',3)
             ->groupby('vn','visitdate','person_id','name','hospmain','h_name')
             ->get();
         return view('creditor.hospitalList',

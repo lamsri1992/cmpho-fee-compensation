@@ -29,7 +29,7 @@
                                 </div>
                                 <div class="col-md-6 text-right">
                                     <?php
-                                    $currentMonth = date('m');
+                                    $currentMonth = $_REQUEST['month'];
                                     $thaiMonths = array(
                                         "มกราคม",
                                         "กุมภาพันธ์",

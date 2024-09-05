@@ -79,6 +79,7 @@ class debtor extends Controller
             ->leftjoin('hospital','hospital.h_code','claim_list.hospmain')
             ->where('hcode',$hcode)
             ->where('hospmain',$id)
+            ->where('p_status',3)
             ->groupby('vn','visitdate','person_id','name','hospmain','h_name')
             ->get();
         // dd($id,$data);
