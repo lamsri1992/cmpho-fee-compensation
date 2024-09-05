@@ -43,9 +43,29 @@ class debtor extends Controller
                 ->join('hospital','h_code','claim_list.hospmain')
                 ->where('hcode','=',$hcode)
                 ->where('hospmain','!=',$hcode)
+                ->where('p_status',3)
+                ->whereRaw('MONTH(created_at) = MONTH(CURDATE())')
                 ->groupBy('hospmain','h_name')
                 ->get();
         return view('debtor.hospital',
+        [
+            'data'=>$data
+        ]);
+    }
+
+    public function hospitalSearch(Request $request)
+    {
+        $hcode = Auth::user()->hcode;
+        $data = DB::table('claim_list')
+                ->select(DB::raw('COUNT(DISTINCT vn) AS num,SUM(total) AS total'),'hospmain','h_name',)
+                ->join('hospital','h_code','claim_list.hospmain')
+                ->where('hcode','=',$hcode)
+                ->where('hospmain','!=',$hcode)
+                ->where('p_status',3)
+                ->whereRaw('MONTH(created_at) = '.$request->month.'')
+                ->groupBy('hospmain','h_name')
+                ->get();
+        return view('debtor.hospitalMonth',
         [
             'data'=>$data
         ]);
