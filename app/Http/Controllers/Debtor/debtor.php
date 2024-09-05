@@ -162,6 +162,48 @@ class debtor extends Controller
         return back()->with('success','เพิ่มข้อมูลลูกหนี้สำเร็จ');
     }
 
+    public function addList(string $id,Request $request)
+    {
+        $hcode = Auth::user()->hcode;
+        $currentDate = date('Y-m-d H:i:s');
+
+        $validatedData = $request->validate(
+            [
+                'icd10' => 'required',
+                'fs_code' => 'required',
+                'total' => 'required',
+            ],
+            [
+                'icd10.required' => 'ระบุ ICD10',
+                'fs_code.required' => 'ระบุรหัสบริการ',
+                'total.required' => 'ระบุค่าใช้จ่ายจริง',
+            ],
+        );
+
+        $data = DB::table('claim_list')->where('vn',$id)->first();
+        DB::table('claim_list')->insert(
+            [
+                'uuid' => Str::uuid()->toString(),
+                'vn' => $id,
+                'visitdate' => $data->visitdate,
+                'hospmain' => $data->hospmain,
+                'person_id' => $data->person_id,
+                'hn' => $data->hn,
+                'name' => $data->name,
+                'age' => $data->age,
+                'sex' => $data->sex,
+                'auth_code' => $data->auth_code,
+                'icd10' => $data->icd10,
+                'fs_code' => $request->fs_code,
+                'total' => $request->total,
+                'hcode' => $hcode,
+                'created_at' => $currentDate,
+                'updated_at' => $currentDate
+            ]
+        );
+        return back()->with('success','เพิ่มข้อมูลลูกหนี้สำเร็จ');
+    }
+
     public function list()
     {
         $hcode = Auth::user()->hcode;
@@ -190,13 +232,19 @@ class debtor extends Controller
             ->first();
 
         $list = DB::table('claim_list')
-            ->select('icd10','fs_code','total','nhso_code','nhso_name','nhso_unit','nhso_cost')
+            ->select('icd10','fs_code','total','nhso_code','nhso_name','nhso_unit','nhso_cost','uuid','p_status',)
             ->leftjoin('nhso','nhso.nhso_code','claim_list.fs_code')
             ->leftjoin('hospital','hospital.h_code','claim_list.hospmain')
             ->where('vn', $id)
+            ->orderBy('claim_id','ASC')
             ->get();
-        // echo $list;
         return view('debtor.show',['data'=>$data,'list'=>$list]);
+    }
+
+    public function listDelete(string $id)
+    {
+        DB::table('claim_list')->where('uuid',$id)->delete();
+        return back()->with('success','ลบรายการแล้ว');
     }
 
     public function search(Request $request)

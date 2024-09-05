@@ -8,6 +8,8 @@ Route::prefix('debtor')->group(function () {
     Route::get('list', [debtor::class, 'list'])->middleware(['auth', 'verified'])->name('debtor.list');
     Route::get('search', [debtor::class, 'search'])->middleware(['auth', 'verified'])->name('debtor.search');
     Route::get('list/{id}', [debtor::class, 'show'])->middleware(['auth', 'verified'])->name('debtor.show');
+    Route::get('list/delete/{id}', [debtor::class, 'listDelete'])->middleware(['auth', 'verified'])->name('debtor.list.delete');
+    Route::post('list/add/{id}', [debtor::class, 'addList'])->middleware(['auth', 'verified'])->name('debtor.list.add');
     Route::post('claim-import', [debtor::class, 'import'])->middleware(['auth', 'verified'])->name('debtor.import');
     Route::get('claim-send', [debtor::class, 'send'])->middleware(['auth', 'verified'])->name('debtor.send');
     Route::get('create', [debtor::class, 'create'])->middleware(['auth', 'verified'])->name('debtor.create');
