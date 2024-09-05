@@ -19,6 +19,7 @@ class creditor extends Controller
             ->leftjoin('hospital','hospital.h_code','claim_list.hcode')
             ->leftjoin('p_status','p_status.id','claim_list.p_status')
             ->where('hospmain',$hcode)
+            ->where('p_status',3)
             ->orderby('claim_id','desc')
             ->get();
         return view('creditor.index',['data'=>$data]);

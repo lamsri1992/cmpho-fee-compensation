@@ -62,7 +62,7 @@
                                     <tr>
                                         <td class="text-center">{{ $i }}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('debtor.show',$rs->vn) }}">
+                                            <a href="{{ route('creditor.vn',$rs->vn) }}">
                                                 {{ $rs->vn }}
                                             </a>
                                         </td>
