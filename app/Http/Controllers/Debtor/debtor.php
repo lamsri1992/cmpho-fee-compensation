@@ -20,7 +20,7 @@ class debtor extends Controller
                 ->select(DB::raw('SUM(total) as total'))
                 ->where('hcode',$hcode)
                 ->first();
-        $count_check = DB::table('claim_list')->where('hcode',$hcode)->count();
+        $count_check = DB::table('claim_list')->where('hcode',$hcode)->where('p_status',1)->count();
         $count_sents = DB::table('claim_list')->where('hcode',$hcode)->whereIn('p_status', [2, 3, 4, 7])->count();
         $count_deny = DB::table('claim_list')->where('hcode',$hcode)->where('p_status', 5)->count();
         $history = DB::table('import_log')->where('hcode',$hcode)->get();
@@ -234,7 +234,7 @@ class debtor extends Controller
             ->leftjoin('nhso','nhso.nhso_code','claim_list.fs_code')
             ->leftjoin('hospital','hospital.h_code','claim_list.hospmain')
             ->leftjoin('p_status','p_status.id','claim_list.p_status')
-            // ->where('p_status', 1)
+            ->where('p_status', 1)
             ->where('hcode',$hcode)
             ->orderby('claim_id','desc')
             ->get();

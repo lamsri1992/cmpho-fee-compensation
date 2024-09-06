@@ -36,7 +36,7 @@
                     <div class="small-box bg-success">
                         <div class="inner">
                             <h3>{{ number_format($count_check) }} <sup style="font-size: 20px">รายการ</sup></h3>
-                            <p>รายการทั้งหมด</p>
+                            <p>ข้อมูลนำเข้ารอตรวจสอบ</p>
                         </div>
                         <div class="icon">
                             <i class="fa-solid fa-clipboard"></i>
