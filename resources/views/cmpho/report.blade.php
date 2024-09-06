@@ -28,10 +28,10 @@
                             <table id="nhso_table" class="table table-striped table-bordered nowrap" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">รหัส รพ.เจ้าหนี้</th>
-                                        <th class="text-start">ชื่อ รพ. เจ้าหนี้</th>
                                         <th class="text-center">รหัส รพ.ลูกหนี้</th>
                                         <th class="text-start">ชื่อ รพ.ลูกหนี้</th>
+                                        <th class="text-center">รหัส รพ.เจ้าหนี้</th>
+                                        <th class="text-start">ชื่อ รพ. เจ้าหนี้</th>
                                         <th class="text-center">จำนวน</th>
                                         <th class="text-end">ค่าใช้จ่ายที่เรียกเก็บ</th>
                                         <th class="text-center">รหัสเดือน</th>
@@ -40,10 +40,10 @@
                                 <tbody>
                                     @foreach ($data as $res)
                                     <tr>
-                                        <td class="text-center">{{ $res->hcode }}</td>
-                                        <td class="text-start">{{ $res->visit_hospital }}</td>
                                         <td class="text-center">{{ $res->hospmain }}</td>
                                         <td class="text-start">{{ $res->main_hospital }}</td>
+                                        <td class="text-center">{{ $res->hcode }}</td>
+                                        <td class="text-start">{{ $res->visit_hospital }}</td>
                                         <td class="text-center">{{ $res->cases }}</td>
                                         <td class="text-end fw-bold">{{ number_format($res->total,2) }}</td>
                                         <td class="text-center">{{ $month }}</td>
