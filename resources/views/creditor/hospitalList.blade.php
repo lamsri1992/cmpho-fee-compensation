@@ -34,7 +34,7 @@
                                         <th class="text-center">VN</th>
                                         <th class="text-center">CID</th>
                                         <th>ผู้รับบริการ</th>
-                                        <th class="text-center">หน่วยบริการหลัก</th>
+                                        <th class="text-center">เจ้าหนี้</th>
                                         <th class="text-right">ค่าบริการ</th>
                                     </tr>
                                 </thead>
@@ -51,7 +51,7 @@
                                         </td>
                                         <td class="text-center">{{ $rs->person_id }}</td>
                                         <td>{{ $rs->name }}</td>
-                                        <td class="text-center">{{ $rs->hospmain." : ".$rs->h_name }}</td>
+                                        <td class="text-center">{{ $rs->hcode." : ".$rs->h_name }}</td>
                                         <td class="text-right text-success">
                                             {{ number_format($rs->total,2)." ฿" }}
                                         </td>

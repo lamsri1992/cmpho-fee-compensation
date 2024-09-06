@@ -63,12 +63,12 @@ class creditor extends Controller
     {
         $hcode = Auth::user()->hcode;
         $data = DB::table('claim_list')
-            ->select(DB::raw('DISTINCT vn , SUM(total) as total'),'visitdate','person_id','name','hospmain','h_name')
-            ->leftjoin('hospital','hospital.h_code','claim_list.hospmain')
+            ->select(DB::raw('DISTINCT vn , SUM(total) as total'),'visitdate','person_id','name','hcode','h_name')
+            ->leftjoin('hospital','hospital.h_code','claim_list.hcode')
             ->where('hcode',$id)
             ->where('hospmain',$hcode)
             ->where('p_status',3)
-            ->groupby('vn','visitdate','person_id','name','hospmain','h_name')
+            ->groupby('vn','visitdate','person_id','name','hcode','h_name')
             ->get();
         return view('creditor.hospitalList',
         [
