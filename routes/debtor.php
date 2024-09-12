@@ -16,5 +16,5 @@ Route::prefix('debtor')->group(function () {
     Route::post('create/add', [debtor::class, 'add'])->middleware(['auth', 'verified'])->name('debtor.add');
     Route::get('hospital', [debtor::class, 'hospital'])->middleware(['auth', 'verified'])->name('debtor.hospital');
     Route::get('hospital/search/month', [debtor::class, 'hospitalSearch'])->middleware(['auth', 'verified'])->name('debtor.hospital.month');
-    Route::get('hospital/{id}', [debtor::class, 'hospitalList'])->middleware(['auth', 'verified'])->name('debtor.hospital.list');
+    Route::get('hospital/{id}/month/{month}', [debtor::class, 'hospitalList'])->middleware(['auth', 'verified'])->name('debtor.hospital.list');
 });

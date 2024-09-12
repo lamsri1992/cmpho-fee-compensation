@@ -71,7 +71,7 @@ class debtor extends Controller
         ]);
     }
 
-    public function hospitalList(string $id)
+    public function hospitalList(string $id,$month)
     {
         $hcode = Auth::user()->hcode;
         $data = DB::table('claim_list')
@@ -79,10 +79,11 @@ class debtor extends Controller
             ->leftjoin('hospital','hospital.h_code','claim_list.hospmain')
             ->where('hcode',$hcode)
             ->where('hospmain',$id)
+            ->whereRaw('MONTH(created_at) = '.$month.'')
             ->where('p_status',3)
             ->groupby('vn','visitdate','person_id','name','hospmain','h_name')
             ->get();
-        // dd($id,$data);
+        // dd($id,$month,$data);
         return view('debtor.hospitalList',
         [
             'data'=>$data,
