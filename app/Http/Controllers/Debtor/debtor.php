@@ -83,7 +83,6 @@ class debtor extends Controller
             ->where('p_status',3)
             ->groupby('vn','visitdate','person_id','name','hospmain','h_name')
             ->get();
-        // dd($id,$month,$data);
         return view('debtor.hospitalList',
         [
             'data'=>$data,
