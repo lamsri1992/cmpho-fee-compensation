@@ -33,7 +33,7 @@ class creditor extends Controller
                 ->join('hospital','h_code','claim_list.hcode')
                 ->where('hospmain',$hcode)
                 ->where('p_status',3)
-                ->whereRaw('MONTH(created_at) = MONTH(CURDATE())')
+                ->whereRaw('MONTH(process_date) = MONTH(CURDATE())')
                 ->groupBy('hcode','h_name')
                 ->get();
         return view('creditor.hospital',
@@ -50,7 +50,7 @@ class creditor extends Controller
                 ->join('hospital','h_code','claim_list.hcode')
                 ->where('hospmain',$hcode)
                 ->where('p_status',3)
-                ->whereRaw('MONTH(created_at) = '.$request->month.'')
+                ->whereRaw('MONTH(process_date) = '.$request->month.'')
                 ->groupBy('hcode','h_name')
                 ->get();
         return view('creditor.hospitalMonth',
@@ -59,7 +59,7 @@ class creditor extends Controller
         ]);
     }
 
-    public function hospitalList(string $id)
+    public function hospitalList(string $id,$month)
     {
         $hcode = Auth::user()->hcode;
         $data = DB::table('claim_list')
@@ -67,6 +67,7 @@ class creditor extends Controller
             ->leftjoin('hospital','hospital.h_code','claim_list.hcode')
             ->where('hcode',$id)
             ->where('hospmain',$hcode)
+            ->whereRaw('MONTH(process_date) = '.$month.'')
             ->where('p_status',3)
             ->groupby('vn','visitdate','person_id','name','hcode','h_name')
             ->get();

@@ -76,7 +76,7 @@
                                         <td class="text-right text-success">{{ number_format($rs->total,2)." ฿" }}</td>
                                         <td class="text-center">{{ number_format($rs->num) }}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('creditor.hospital.list',$rs->hcode) }}" class="btn btn-secondary btn-sm">
+                                            <a href="{{ route('creditor.hospital.list',['id' => $rs->hcode, 'month' => date('m')]) }}" class="btn btn-secondary btn-sm">
                                                 <i class="fa-solid fa-clipboard"></i>
                                                 รายละเอียด
                                             </a>

@@ -44,7 +44,7 @@ class debtor extends Controller
                 ->where('hcode','=',$hcode)
                 // ->where('hospmain','!=',$hcode)
                 ->where('p_status',3)
-                ->whereRaw('MONTH(created_at) = MONTH(CURDATE())')
+                ->whereRaw('MONTH(process_date) = MONTH(CURDATE())')
                 ->groupBy('hospmain','h_name')
                 ->get();
         return view('debtor.hospital',
@@ -62,7 +62,7 @@ class debtor extends Controller
                 ->where('hcode','=',$hcode)
                 // ->where('hospmain','!=',$hcode)
                 ->where('p_status',3)
-                ->whereRaw('MONTH(created_at) = '.$request->month.'')
+                ->whereRaw('MONTH(process_date) = '.$request->month.'')
                 ->groupBy('hospmain','h_name')
                 ->get();
         return view('debtor.hospitalMonth',
@@ -79,7 +79,7 @@ class debtor extends Controller
             ->leftjoin('hospital','hospital.h_code','claim_list.hospmain')
             ->where('hcode',$hcode)
             ->where('hospmain',$id)
-            ->whereRaw('MONTH(created_at) = '.$month.'')
+            ->whereRaw('MONTH(process_date) = '.$month.'')
             ->where('p_status',3)
             ->groupby('vn','visitdate','person_id','name','hospmain','h_name')
             ->get();
@@ -175,7 +175,7 @@ class debtor extends Controller
                     'fs_code' => $value['fs_code'],
                     'total' => $value['total'],
                     'hcode' => $hcode,
-                    'created_at' => $currentDate,
+                    'process_date' => $currentDate,
                     'updated_at' => $currentDate
                 ]
             );
@@ -218,7 +218,7 @@ class debtor extends Controller
                 'fs_code' => $request->fs_code,
                 'total' => $request->total,
                 'hcode' => $hcode,
-                'created_at' => $currentDate,
+                'process_date' => $currentDate,
                 'updated_at' => $currentDate
             ]
         );
