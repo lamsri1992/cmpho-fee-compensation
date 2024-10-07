@@ -113,7 +113,11 @@
                                     @php $i++; @endphp
                                     <tr>
                                         <td class="text-center">{{ $i }}</td>
-                                        <td class="text-center">{{ $rs->ex_file }}</td>
+                                        <td class="text-center">
+                                            <a href="{{ asset('uploads/'.$rs->ex_file) }}">
+                                                {{ $rs->ex_file }}
+                                            </a>
+                                        </td>
                                         <td class="text-center">{{ date("d/m/Y", strtotime($rs->import_date)) }}</td>
                                     </tr>
                                     @endforeach
