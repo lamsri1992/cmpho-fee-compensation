@@ -80,6 +80,7 @@ class creditor extends Controller
 
     public function vn(string $id)
     {
+        $hcode = Auth::user()->hcode;
         $data = DB::table('claim_list')
             ->select('vn','visitdate','hospmain','hcode','name','hn',
             'h_name','auth_code','person_id','age','sex_name','sex_icon')
@@ -87,15 +88,46 @@ class creditor extends Controller
             ->leftjoin('hospital','hospital.h_code','claim_list.hospmain')
             ->leftjoin('sex_type','sex_type.sex_id','claim_list.sex')
             ->where('vn', $id)
+            ->where('hospmain', $hcode)
             ->first();
 
         $list = DB::table('claim_list')
-            ->select('icd10','fs_code','total','nhso_code','nhso_name','nhso_unit','nhso_cost')
+            ->select('uuid','icd10','fs_code','total','nhso_code','nhso_name','nhso_unit','nhso_cost')
             ->leftjoin('nhso','nhso.nhso_code','claim_list.fs_code')
             ->leftjoin('hospital','hospital.h_code','claim_list.hospmain')
             ->where('vn', $id)
+            ->where('hospmain', $hcode)
+            ->where('p_status','<>', 5)
             ->get();
-        return view('creditor.vn',['data'=>$data,'list'=>$list]);
+
+        $deny = DB::table('claim_list')
+            ->select('uuid','icd10','fs_code','total','nhso_code','nhso_name','nhso_unit','nhso_cost')
+            ->leftjoin('nhso','nhso.nhso_code','claim_list.fs_code')
+            ->leftjoin('hospital','hospital.h_code','claim_list.hospmain')
+            ->where('vn', $id)
+            ->where('hospmain', $hcode)
+            ->where('p_status', 5)
+            ->get();
+        return view('creditor.vn',
+            [
+                'data'=>$data,
+                'list'=>$list,
+                'deny'=>$deny,
+            ]
+        );
+    }
+
+    public function deny($id)
+    {
+        $currentDate = date('Y-m-d H:i:s');
+        $data = DB::table('claim_list')->where('uuid',$id)->update(
+            [
+                "p_status" => 5,
+                "updated_at" => $currentDate
+                
+            ]
+        );
+        return back()->with('success','ยืนยันไม่จ่ายรายการแล้ว');
     }
 
 }

@@ -10,4 +10,5 @@ Route::prefix('creditor')->group(function () {
     Route::get('hospital', [creditor::class, 'hospital'])->middleware(['auth', 'verified'])->name('creditor.hospital');
     Route::get('hospital/search/month', [creditor::class, 'hospitalSearch'])->middleware(['auth', 'verified'])->name('creditor.hospital.month');
     Route::get('hospital/{id}/month/{month}', [creditor::class, 'hospitalList'])->middleware(['auth', 'verified'])->name('creditor.hospital.list');
+    Route::post('vn/deny/{id}', [creditor::class, 'deny'])->middleware(['auth', 'verified'])->name('creditor.vn.deny');
 });

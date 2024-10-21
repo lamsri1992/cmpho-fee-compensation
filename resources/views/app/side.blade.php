@@ -76,12 +76,19 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="#"
+                                class="nav-link {{ request()->is('creditor/paid*') ? 'active':'' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>ข้อมูลการตามจ่าย</p>
+                            </a>
+                        </li>
+                        {{-- <li class="nav-item">
                             <a href="{{ route('creditor.index') }}"
                                 class="nav-link {{ request()->is('creditor') || request()->is('creditor/list*') ? 'active':'' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>ข้อมูลรายการเจ้าหนี้</p>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
                 <li class="nav-item {{ request()->is('nhso*') ? 'menu-is-opening menu-open':'' }}">
