@@ -38,7 +38,7 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('debtor.index') }}"
-                                class="nav-link {{ request()->is('debtor') || request()->is('debtor/list*') ? 'active':'' }}">
+                                class="nav-link {{ request()->is('debtor') || request()->is('debtor/list*') || request()->is('debtor/deny*') ? 'active':'' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>ข้อมูลรายการลูกหนี้</p>
                             </a>

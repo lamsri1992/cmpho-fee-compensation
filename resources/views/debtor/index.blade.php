@@ -71,7 +71,7 @@
                         <div class="icon">
                             <i class="fa-solid fa-file-circle-xmark"></i>
                         </div>
-                        <a href="#" class="small-box-footer">
+                        <a href="{{ route('debtor.deny') }}" class="small-box-footer">
                             รายละเอียด
                             <i class="fa-solid fa-search"></i>
                         </a>

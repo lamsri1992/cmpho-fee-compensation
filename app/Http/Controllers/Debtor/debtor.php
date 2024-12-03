@@ -241,6 +241,22 @@ class debtor extends Controller
         return view('debtor.list',['data'=>$data]);
     }
 
+    public function deny()
+    {
+        $hcode = Auth::user()->hcode;
+        $data = DB::table('claim_list')
+            ->select('uuid','claim_id','vn','visitdate','hospmain','hcode','name','hn','h_name',
+            'icd10','fs_code','total','nhso_code','nhso_name','nhso_unit','nhso_cost','p_name','p_icon','p_text_color')
+            ->leftjoin('nhso','nhso.nhso_code','claim_list.fs_code')
+            ->leftjoin('hospital','hospital.h_code','claim_list.hospmain')
+            ->leftjoin('p_status','p_status.id','claim_list.p_status')
+            ->where('p_status', 5)
+            ->where('hcode',$hcode)
+            ->orderby('claim_id','desc')
+            ->get();
+        return view('debtor.deny',['data'=>$data]);
+    }
+
     public function show(string $id)
     {
         $data = DB::table('claim_list')
