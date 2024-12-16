@@ -111,8 +111,16 @@
                                             </a>    
                                             @endif
                                         </td>
-                                        <td class="text-center {{ $bg }}">{{ number_format($rs->total,2) }}</td>
-                                        <td class="text-center {{ $bg }}">{{ number_format($rs->nhso_cost,2) }}</td>
+                                        <td class="text-center {{ $bg }}">
+                                            {{ number_format($rs->total,2) }}
+                                        </td>
+                                        <td class="text-center {{ $bg }}">
+                                            @if (!isset($rs->nhso_code) && !isset($rs->tpuid))
+                                                0.00
+                                            @else
+                                            {{ number_format($rs->total,2) }}
+                                            @endif
+                                        </td>
                                         <td class="text-center">
                                             <a href="#" class="{{ $rs->p_text_color }}"
                                                 onclick="
