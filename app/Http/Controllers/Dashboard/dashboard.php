@@ -51,7 +51,7 @@ class dashboard extends Controller
 
     public function drug()
     {
-        $data = DB::table('nhso_drug')->get();
+        $data = DB::table('tmt')->get();
         return view('drug',['data'=>$data]);
     }
 }

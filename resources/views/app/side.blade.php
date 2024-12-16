@@ -95,7 +95,7 @@
                     <a href="#" class="nav-link {{ request()->is('nhso*') ? 'active':'' }}">
                         <i class="nav-icon fa-solid fa-clipboard-list"></i>
                         <p>
-                            เกณฑ์ราคา สปสช.
+                            บัญชีบริการ และยา
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -104,14 +104,14 @@
                             <a href="{{ route('nhso.list') }}"
                                 class="nav-link {{ request()->is('nhso/list') ? 'active':'' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>อัตราจ่ายค่าบริการ</p>
+                                <p>ข้อมูลค่าบริการ</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('nhso.drug') }}" 
                                 class="nav-link {{ request()->is('nhso/drug*') ? 'active':'' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>อัตราจ่ายค่ายา</p>
+                                <p>ข้อมูลบัญชียา</p>
                             </a>
                         </li>
                     </ul>

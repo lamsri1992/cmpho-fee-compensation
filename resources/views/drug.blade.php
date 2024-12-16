@@ -10,7 +10,7 @@
                         <li class="breadcrumb-item active">
                             <h3>
                                 <i class="nav-icon fa-solid fa-clipboard-list"></i>
-                                อัตราจ่ายค่ายา
+                                ข้อมูลบัญชียา
                             </h3>
                         </li>
                     </ol>
@@ -25,30 +25,38 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title">อัตราจ่ายค่ายา</h5>
+                            <h5 class="card-title">
+                                <i class="fa-regular fa-file-lines"></i>
+                                ข้อมูลบัญชียาจาก TMT API - สำนักพัฒนามาตรฐานระบบข้อมูลสุขภาพไทย (สมสท.)
+                            </h5>
                         </div>
                         <div class="card-body">
                             <table id="drug_table" class="table table-striped table-borderless table-bordered nowrap" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">No</th>
-                                        <th class="text-center">รหัส</th>
+                                        <th class="text-center">TMT : ID</th>
                                         <th>รายการ</th>
-                                        <th class="text-center">หน่วยนับ</th>
-                                        <th>อัตราจ่าย</th>
+                                        <th class="text-center">ประเภท</th>
+                                        <th class="text-center">วันที่ปรับปรุง</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($data as $rs)
                                     <tr>
-                                        <td class="text-center">{{ $rs->drug_id }}</td>
-                                        <td class="text-center">{{ $rs->drug_code }}</td>
-                                        <td>{{ $rs->drug_name }}</td>
-                                        <td class="text-center">{{ $rs->drug_unit }}</td>
-                                        <td>{{ number_format($rs->drug_pay_rate,2) }}</td>
+                                        <td class="text-center">{{ $rs->tpuid }}</td>
+                                        <td>{{ $rs->fsn }}</td>
+                                        <td class="text-center">{{ $rs->nlem }}</td>
+                                        <td class="text-center">{{ date("d/m/Y", strtotime($rs->change_date)) }}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -81,11 +89,7 @@
             [10, 25, 50, -1],
             [10, 25, 50, "All"]
         ],
-        responsive: true,
-        // scrollX: true,
-        rowReorder: {
-            selector: 'td:nth-child(2)'
-        },
+        scrollX: true,
         oLanguage: {
             oPaginate: {
                 sFirst: '<small>หน้าแรก</small>',

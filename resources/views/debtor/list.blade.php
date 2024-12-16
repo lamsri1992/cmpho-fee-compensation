@@ -50,18 +50,16 @@
                                     @php $i = 0; @endphp
                                     @foreach ($data as $rs)
                                     @php $i++; @endphp
-                                    @if (!isset($rs->nhso_code))
+                                    @if (!isset($rs->nhso_code) && !isset($rs->tpuid))
                                     @php 
                                         $icon = 'error';
                                         $text = 'ไม่พบข้อมูลใน NHSO FS-CODE';
-                                        $check = $rs->fs_code;
                                         $bg = 'bg-danger';
                                     @endphp
                                     @else
                                     @php 
                                         $icon = 'success';
                                         $text = '';
-                                        $check = $rs->nhso_code;
                                         $bg = 'bg-success';
                                     @endphp
                                     @endif
@@ -76,16 +74,42 @@
                                         <td class="text-center">{{ $rs->hospmain." : ".$rs->h_name }}</td>
                                         <td class="text-center">{{ $rs->hn }}</td>
                                         <td class="text-center {{ $bg }}">
+                                            @if ($rs->nhso_code != "")
                                             <a href="#" 
                                                 onclick="
                                                     Swal.fire({
                                                         icon: '{{ $icon }}',
-                                                        title: '{{ $check }}',
-                                                        text: '{{ $text.$rs->nhso_name }}',
+                                                        title: '{{ $rs->nhso_code }}',
+                                                        text: '{{ $rs->nhso_name }}',
                                                     });
                                                 ">
-                                                {{ $check }}
+                                                {{ $rs->nhso_code }}
                                             </a>
+                                            @endif
+                                            @if ($rs->tpuid != "")
+                                            <a href="#" 
+                                                onclick="
+                                                    Swal.fire({
+                                                        icon: '{{ $icon }}',
+                                                        title: '{{ $rs->tpuid }}',
+                                                        text: '{{ $rs->fsn }}',
+                                                    });
+                                                ">
+                                                {{ $rs->tpuid }}
+                                            </a>
+                                            @endif
+                                            @if ($rs->nhso_code == "" && $rs->tpuid == "") 
+                                            <a href="#" 
+                                                onclick="
+                                                    Swal.fire({
+                                                        icon: '{{ $icon }}',
+                                                        title: '{{ $rs->fs_code }}',
+                                                        text: '{{ $text }}',
+                                                    });
+                                                ">
+                                                {{ $rs->fs_code }}
+                                            </a>    
+                                            @endif
                                         </td>
                                         <td class="text-center {{ $bg }}">{{ number_format($rs->total,2) }}</td>
                                         <td class="text-center {{ $bg }}">{{ number_format($rs->nhso_cost,2) }}</td>

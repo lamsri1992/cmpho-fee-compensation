@@ -10,7 +10,7 @@
                         <li class="breadcrumb-item active">
                             <h3>
                                 <i class="nav-icon fa-solid fa-clipboard-list"></i>
-                                อัตราจ่ายค่าบริการ
+                                ข้อมูลค่าบริการ
                             </h3>
                         </li>
                     </ol>
@@ -25,7 +25,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title">อัตราจ่ายค่าบริการ <small class="text-danger">Update มีนาคม 2567</small></h5>
+                            <h5 class="card-title">ข้อมูลค่าบริการ <small class="text-danger">Update มีนาคม 2567</small></h5>
                         </div>
                         <div class="card-body">
                             <table id="nhso_table" class="table table-striped table-borderless table-bordered nowrap" style="width:100%">
