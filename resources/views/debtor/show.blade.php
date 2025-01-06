@@ -92,8 +92,10 @@
                                         <th class="text-center">No</th>
                                         <th class="text-center">ICD10</th>
                                         <th class="text-center">รหัสบริการ</th>
-                                        <th class="text-center">ค่าใช้จ่ายจริง</th>
-                                        <th class="text-center">อัตราจ่าย FS</th>
+                                        <th class="text-center">จำนวน</th>
+                                        <th class="text-center">ค่าใช้จ่าย</th>
+                                        <th class="text-center">รวม</th>
+                                        <th class="text-center">อัตราจ่าย</th>
                                         <th class="text-center"><i class="fa-solid fa-trash"></i></th>
                                     </tr>
                                 </thead>
@@ -102,7 +104,7 @@
                                     @php $total = 0; @endphp
                                     @foreach ($list as $rs)
                                     @php $i++; @endphp
-                                    @php $total += $rs->total @endphp
+                                    @php $total += $rs->total * $rs->unit @endphp
                                     @if (!isset($rs->nhso_code) && !isset($rs->tpuid))
                                     @php 
                                         $icon = 'error';
@@ -158,13 +160,19 @@
                                             @endif
                                         </td>
                                         <td class="text-center {{ $bg }}">
+                                            {{ number_format($rs->unit) }}
+                                        </td>
+                                        <td class="text-center {{ $bg }}">
                                             {{ number_format($rs->total,2) }}
                                         </td>
                                         <td class="text-center {{ $bg }}">
+                                            {{ number_format($rs->total * $rs->unit,2) }}
+                                        </td>
+                                        <td class="text-center bg-warning">
                                             @if (!isset($rs->nhso_code) && !isset($rs->tpuid))
                                                 0.00
                                             @else
-                                            {{ number_format($rs->total,2) }}
+                                            {{ number_format($rs->total * $rs->unit,2) }}
                                             @endif
                                         </td>
                                         <td class="text-center">
@@ -197,10 +205,10 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="6" class="text-center">
+                                        <td colspan="8" class="text-center">
                                             <h5>
-                                                รวมค่าใช้จ่ายจริง
-                                                {{ number_format($total,2) }}
+                                                รวมทั้งหมด
+                                                {{ number_format($total,2)." บาท" }}
                                             </h5>
                                         </td>
                                     </tr>
@@ -240,13 +248,17 @@
                             <label>ICD10</label>
                             <input type="text" name="icd10" class="form-control" value="{{ $rs->icd10 }}">
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label>รหัสบริการ</label>
                             <input type="text" name="fs_code" class="form-control" placeholder="ระบุรหัสบริการ">
                         </div>
-                        <div class="form-group col-md-6">
-                            <label>ค่าใช้จ่ายจริง</label>
-                            <input type="text" name="total" class="form-control" placeholder="ระบุรหัสค่าใช้จ่าย">
+                        <div class="form-group col-md-4">
+                            <label>จำนวน</label>
+                            <input type="text" name="unit" class="form-control" placeholder="ระบุจำนวน">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>ค่าใช้จ่าย</label>
+                            <input type="text" name="total" class="form-control" placeholder="ระบุค่าใช้จ่าย">
                         </div>
                     </div>
                 </div>

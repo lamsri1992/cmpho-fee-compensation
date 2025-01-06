@@ -41,7 +41,9 @@
                                         <th class="text-center">สถานบริการหลัก</th>
                                         <th class="text-center">HN</th>
                                         <th class="text-center">รหัสบริการ</th>
+                                        <th class="text-center">จำนวน</th>
                                         <th class="text-center">ค่าใช้จ่าย</th>
+                                        <th class="text-center">รวม</th>
                                         <th class="text-center">อัตราจ่าย</th>
                                         <th class="text-center">สถานะ</th>
                                     </tr>
@@ -112,13 +114,19 @@
                                             @endif
                                         </td>
                                         <td class="text-center {{ $bg }}">
+                                            {{ number_format($rs->unit) }}
+                                        </td>
+                                        <td class="text-center {{ $bg }}">
                                             {{ number_format($rs->total,2) }}
                                         </td>
                                         <td class="text-center {{ $bg }}">
+                                            {{ number_format($rs->total * $rs->unit,2) }}
+                                        </td>
+                                        <td class="text-center bg-warning">
                                             @if (!isset($rs->nhso_code) && !isset($rs->tpuid))
                                                 0.00
                                             @else
-                                            {{ number_format($rs->total,2) }}
+                                            {{ number_format($rs->total * $rs->unit,2) }}
                                             @endif
                                         </td>
                                         <td class="text-center">
