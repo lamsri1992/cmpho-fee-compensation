@@ -27,8 +27,10 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item {{ request()->is('cmpho/config*') ? 'menu-is-opening menu-open':'' }}">
-                    <a href="#" class="nav-link {{ request()->is('cmpho/config*') ? 'active':'' }}">
+                <li
+                    class="nav-item {{ request()->is('cmpho/config*') ? 'menu-is-opening menu-open':'' }}">
+                    <a href="#"
+                        class="nav-link {{ request()->is('cmpho/config*') ? 'active':'' }}">
                         <i class="nav-icon fas fa-cog"></i>
                         <p>
                             ตั้งค่าระบบ
@@ -37,7 +39,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('config.hospital') }}" 
+                            <a href="{{ route('config.hospital') }}"
                                 class="nav-link {{ request()->is('cmpho/config/hospital*') ? 'active':'' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>ข้อมูลหน่วยบริการ</p>
@@ -52,8 +54,10 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item {{ request()->is('nhso*') ? 'menu-is-opening menu-open':'' }}">
-                    <a href="#" class="nav-link {{ request()->is('nhso*') ? 'active':'' }}">
+                <li
+                    class="nav-item {{ request()->is('nhso*') ? 'menu-is-opening menu-open':'' }}">
+                    <a href="#"
+                        class="nav-link {{ request()->is('nhso*') ? 'active':'' }}">
                         <i class="nav-icon fa-solid fa-clipboard-list"></i>
                         <p>
                             เกณฑ์ราคา สปสช.
@@ -69,7 +73,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('nhso.drug') }}" 
+                            <a href="{{ route('nhso.drug') }}"
                                 class="nav-link {{ request()->is('nhso/drug*') ? 'active':'' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>อัตราจ่ายค่ายา</p>
@@ -96,21 +100,29 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <select name="month" class="custom-select" @required(true)>
-                        <option value="">-- เลือกเดือน --</option>
-                        <option value="01">มกราคม</option>
-                        <option value="02">กุมภาพันธ์</option>
-                        <option value="03">มีนาคม</option>
-                        <option value="04">เมษายน</option>
-                        <option value="05">พฤษภาคม</option>
-                        <option value="06">มิถุนายน</option>
-                        <option value="07">กรกฏาคม</option>
-                        <option value="08">สิงหาคม</option>
-                        <option value="09">กันยายน</option>
-                        <option value="10">ตุลาคม</option>
-                        <option value="11">พฤศจิกายน</option>
-                        <option value="12">ธันวาคม</option>
-                    </select>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <select name="month" class="custom-select" @required(true)>
+                                <option value="">-- เลือกเดือน --</option>
+                                <option value="01">มกราคม</option>
+                                <option value="02">กุมภาพันธ์</option>
+                                <option value="03">มีนาคม</option>
+                                <option value="04">เมษายน</option>
+                                <option value="05">พฤษภาคม</option>
+                                <option value="06">มิถุนายน</option>
+                                <option value="07">กรกฏาคม</option>
+                                <option value="08">สิงหาคม</option>
+                                <option value="09">กันยายน</option>
+                                <option value="10">ตุลาคม</option>
+                                <option value="11">พฤศจิกายน</option>
+                                <option value="12">ธันวาคม</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label>ระบุปี พ.ศ.</label>
+                            <input type="text" class="form-control" name="year" @required(true) placeholder="กรุณาระบุปี พ.ศ.">
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-default">

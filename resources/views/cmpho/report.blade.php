@@ -18,11 +18,41 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title">
-                                <i class="fa-solid fa-print"></i>
-                                รายงานข้อมูลเรียกเก็บแยกหน่วยบริการ
-                            </h5>
+                        <div class="card-header row">
+                            <div class="col-md-6">
+                                <h5 class="card-title">
+                                    <i class="fa-solid fa-print"></i>
+                                    รายงานข้อมูลเรียกเก็บแยกหน่วยบริการ
+                                </h5>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <?php
+                                $currentMonth = $_REQUEST['month'];
+                                $thaiMonths = array(
+                                    "มกราคม",
+                                    "กุมภาพันธ์",
+                                    "มีนาคม",
+                                    "เมษายน",
+                                    "พฤษภาคม",
+                                    "มิถุนายน",
+                                    "กรกฎาคม",
+                                    "สิงหาคม",
+                                    "กันยายน",
+                                    "ตุลาคม",
+                                    "พฤศจิกายน",
+                                    "ธันวาคม"
+                                );
+
+                                $thaiMonthName = $thaiMonths[$currentMonth - 1];
+                                ?>
+                                <span>
+                                    <i class="fa-regular fa-calendar"></i>
+                                    {{ "ข้อมูลเดือน".$thaiMonthName." พ.ศ. ".$_REQUEST['year'] }}
+                                    <small class="text-danger">
+                                        แสดงเฉพาะข้อมูลที่ประมวลผลแล้ว
+                                    </small>
+                                </span>
+                            </div>
                         </div>
                         <div class="card-body">
                             <table id="nhso_table" class="table table-striped table-bordered nowrap" style="width:100%">

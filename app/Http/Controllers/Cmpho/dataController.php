@@ -39,6 +39,7 @@ class dataController extends Controller
 
     public function report(Request $request)
     {
+        $year = $request->year - 543;
         $sql = "SELECT claim_list.hcode,hospital_a.h_name AS visit_hospital,
                 claim_list.hospmain,hospital_b.h_name AS main_hospital,
                 COUNT(claim_list.trans_code) AS cases,
@@ -48,11 +49,13 @@ class dataController extends Controller
                 LEFT JOIN hospital as hospital_b ON hospital_b.h_code = claim_list.hospmain
                 WHERE claim_list.p_status = 3
                 AND MONTH(claim_list.process_date) = $request->month
+                AND YEAR(claim_list.process_date) = $year
                 GROUP BY claim_list.trans_code,claim_list.hcode,claim_list.hospmain,hospital_a.h_name,hospital_b.h_name
                 ORDER BY hospital_a.h_code,hospital_b.h_code ASC";
         $data = DB::select($sql);
         $month = $request->month;
-        return view('cmpho.report',['data'=>$data,'month'=>$month]);
+        $years = $request->year;
+        return view('cmpho.report',['data'=>$data,'month'=>$month,'years'=>$years]);
     }
 
 }

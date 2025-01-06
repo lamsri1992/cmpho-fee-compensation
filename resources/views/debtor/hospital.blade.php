@@ -49,7 +49,7 @@
                                     ?>
                                     <span>
                                         <i class="fa-regular fa-calendar"></i>
-                                        {{ "ข้อมูลเดือน".$thaiMonthName }}
+                                        {{ "ข้อมูลเดือน".$thaiMonthName." พ.ศ. ".date('Y') + 543 }}
                                         <small class="text-danger">
                                             แสดงเฉพาะข้อมูลที่ประมวลผลแล้ว
                                         </small>
@@ -123,6 +123,10 @@
                                 <option value="11">พฤศจิกายน</option>
                                 <option value="12">ธันวาคม</option>
                             </select>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label>ระบุปี พ.ศ.</label>
+                            <input type="text" class="form-control" name="year" @required(true) placeholder="กรุณาระบุปี พ.ศ.">
                         </div>
                     </div>
                 </div>

@@ -45,6 +45,7 @@ class debtor extends Controller
                 // ->where('hospmain','!=',$hcode)
                 ->where('p_status',3)
                 ->whereRaw('MONTH(process_date) = MONTH(CURDATE())')
+                ->whereRaw('YEAR(process_date) = YEAR(CURDATE())')
                 ->groupBy('hospmain','h_name')
                 ->get();
         return view('debtor.hospital',
@@ -56,6 +57,7 @@ class debtor extends Controller
     public function hospitalSearch(Request $request)
     {
         $hcode = Auth::user()->hcode;
+        $year = $request->year - 543;
         $data = DB::table('claim_list')
                 ->select(DB::raw('COUNT(DISTINCT vn) AS num,SUM(total) AS total'),'hospmain','h_name',)
                 ->join('hospital','h_code','claim_list.hospmain')
@@ -63,6 +65,7 @@ class debtor extends Controller
                 // ->where('hospmain','!=',$hcode)
                 ->where('p_status',3)
                 ->whereRaw('MONTH(process_date) = '.$request->month.'')
+                ->whereRaw('YEAR(process_date) = '.$year.'')
                 ->groupBy('hospmain','h_name')
                 ->get();
         return view('debtor.hospitalMonth',
