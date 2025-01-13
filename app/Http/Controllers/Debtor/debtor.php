@@ -325,7 +325,7 @@ class debtor extends Controller
         $transCode = $hcode.date('Ym').substr(rand(),1,5);
 
         DB::table('claim_list')
-            ->leftjoin('nhso','nhso.nhso_code','claim_list.fs_code')
+            // ->leftjoin('nhso','nhso.nhso_code','claim_list.fs_code')
             ->where('hcode',$hcode)
             // ->whereNotNull('nhso_code')
             ->whereNull('trans_code')
