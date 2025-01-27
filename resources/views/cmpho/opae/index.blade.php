@@ -6,7 +6,8 @@
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active">บันทึกข้อมูลผู้รับบริการ</li>
+                        <li class="breadcrumb-item">ข้อมูลรอประมวลผล</li>
+                        <li class="breadcrumb-item active">ข้อมูล OPAE</li>
                     </ol>
                 </div>
             </div>
@@ -79,7 +80,7 @@
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     $.ajax({
-                                        url:"{{ route('cmpho.process') }}",
+                                        url:"{{ route('cmpho.opae.process') }}",
                                         method:'GET',
                                         success:function(data){
                                             let timerInterval

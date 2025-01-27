@@ -6,7 +6,7 @@
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item">ข้อมูลลูกหนี้</li>
+                        <li class="breadcrumb-item">ลูกหนี้ CT - MRI</li>
                         <li class="breadcrumb-item active">ลูกหนี้แยกโรงพยาบาล</li>
                     </ol>
                 </div>
@@ -76,7 +76,7 @@
                                         <td class="text-success text-right">{{ number_format($rs->total,2)." ฿" }}</td>
                                         <td class="text-center">{{ number_format($rs->num) }}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('debtor.hospital.list',['id' => $rs->hospmain, 'month' => date('m')]) }}" class="btn btn-secondary btn-sm">
+                                            <a href="{{ route('ctmri.hospital.list',['id' => $rs->hospmain, 'month' => date('m')]) }}" class="btn btn-secondary btn-sm">
                                                 <i class="fa-solid fa-clipboard"></i>
                                                 รายละเอียด
                                             </a>

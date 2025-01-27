@@ -6,8 +6,8 @@
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item">เจ้าหนี้ OPAE</li>
-                        <li class="breadcrumb-item active">เจ้าหนี้แยกโรงพยาบาล</li>
+                        <li class="breadcrumb-item">ลูกหนี้ OPAE</li>
+                        <li class="breadcrumb-item active">ลูกหนี้แยกโรงพยาบาล</li>
                     </ol>
                 </div>
             </div>
@@ -24,7 +24,7 @@
                                 <div class="col-md-6">
                                     <h5 class="card-title">
                                         <i class="fa-regular fa-hospital"></i>
-                                        ข้อมูลเจ้าหนี้แยกรายโรงพยาบาล
+                                        ข้อมูลลูกหนี้แยกรายโรงพยาบาล
                                     </h5>
                                 </div>
                                 <div class="col-md-6 text-right">
@@ -71,12 +71,12 @@
                                 <tbody>
                                     @foreach ($data as $rs)
                                     <tr>
-                                        <td class="text-center">{{ $rs->hcode }}</td>
+                                        <td class="text-center">{{ $rs->hospmain }}</td>
                                         <td class="">{{ $rs->h_name }}</td>
-                                        <td class="text-right text-success">{{ number_format($rs->total,2)." ฿" }}</td>
+                                        <td class="text-success text-right">{{ number_format($rs->total_p + $rs->total_c,2)." ฿" }}</td>
                                         <td class="text-center">{{ number_format($rs->num) }}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('creditor.hospital.list',['id' => $rs->hcode, 'month' => date('m')]) }}" class="btn btn-secondary btn-sm">
+                                            <a href="{{ route('ctmri.hospital.list',['id' => $rs->hospmain, 'month' => date('m')]) }}" class="btn btn-secondary btn-sm">
                                                 <i class="fa-solid fa-clipboard"></i>
                                                 รายละเอียด
                                             </a>
@@ -95,7 +95,7 @@
 <!-- Modal -->
 <div class="modal fade" id="monthList" tabindex="-1" aria-labelledby="monthListLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <form action="{{ route('creditor.hospital.month') }}" method="GET">
+        <form action="{{ route('ctmri.hospital.month') }}" method="GET">
             @csrf
             <div class="modal-content">
                 <div class="modal-header">
@@ -144,40 +144,40 @@
 @endsection
 @section('script')
 <script>
-    new DataTable('#nhso_table', {
-       layout: {
-           topStart: {
-               buttons: [
-                   {
-                       text: '<i class="fa-regular fa-calendar-check text-primary"></i> เลือกข้อมูลรายเดือน',
-                       action: function (e, dt, node, config) {
-                           $('#monthList').modal('show')
-                       }
-                   },
-               ]
-           }
-       },
-       lengthMenu: [
-           [10, 25, 50, -1],
-           [10, 25, 50, "All"]
-       ],
-       responsive: true,
-       // scrollX: true,
-       rowReorder: {
-           selector: 'td:nth-child(2)'
-       },
-       oLanguage: {
-           oPaginate: {
-               sFirst: '<small>หน้าแรก</small>',
-               sLast: '<small>หน้าสุดท้าย</small>',
-               sNext: '<small>ถัดไป</small>',
-               sPrevious: '<small>กลับ</small>'
-           },
-           sSearch: '<small><i class="fa fa-search"></i> ค้นหา</small>',
-           sInfo: '<small>ทั้งหมด _TOTAL_ รายการ</small>',
-           sLengthMenu: '<small>แสดง _MENU_ รายการ</small>',
-           sInfoEmpty: '<small>ไม่มีข้อมูล</small>'
-       },
-   });
+     new DataTable('#nhso_table', {
+        layout: {
+            topStart: {
+                buttons: [
+                    {
+                        text: '<i class="fa-regular fa-calendar-check text-primary"></i> เลือกข้อมูลรายเดือน',
+                        action: function (e, dt, node, config) {
+                            $('#monthList').modal('show')
+                        }
+                    },
+                ]
+            }
+        },
+        lengthMenu: [
+            [10, 25, 50, -1],
+            [10, 25, 50, "All"]
+        ],
+        responsive: true,
+        // scrollX: true,
+        rowReorder: {
+            selector: 'td:nth-child(2)'
+        },
+        oLanguage: {
+            oPaginate: {
+                sFirst: '<small>หน้าแรก</small>',
+                sLast: '<small>หน้าสุดท้าย</small>',
+                sNext: '<small>ถัดไป</small>',
+                sPrevious: '<small>กลับ</small>'
+            },
+            sSearch: '<small><i class="fa fa-search"></i> ค้นหา</small>',
+            sInfo: '<small>ทั้งหมด _TOTAL_ รายการ</small>',
+            sLengthMenu: '<small>แสดง _MENU_ รายการ</small>',
+            sInfoEmpty: '<small>ไม่มีข้อมูล</small>'
+        },
+    });
 </script>
 @endsection

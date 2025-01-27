@@ -6,7 +6,7 @@
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item">ข้อมูลลูกหนี้</li>
+                        <li class="breadcrumb-item">ลูกหนี้ OPAE</li>
                         <li class="breadcrumb-item">ลูกหนี้แยกโรงพยาบาล</li>
                         <li class="breadcrumb-item active">{{ $id }}</li>
                     </ol>

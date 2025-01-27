@@ -11,27 +11,69 @@ class dataController extends Controller
 {
     public function index()
     {
+        $opae = DB::table('claim_list')->where('p_status',2)->count();
+        $sopae = DB::table('claim_list')->where('p_status',8)->count();
+        $ctmri = DB::table('ct_list')->where('ct_status',2)->count();
+        $sctmri = DB::table('ct_list')->where('ct_status',8)->count();
+        return view('cmpho.dashboard',
+            [
+                'opae' => $opae,
+                'sopae' => $sopae,
+                'ctmri' => $ctmri,
+                'sctmri' => $sctmri,
+            ]
+        );
+    }
+
+    public function opae()
+    {
         $sql = "SELECT DISTINCT(claim_list.hcode),hospital.h_name,COUNT(claim_list.trans_code) AS total
                 FROM claim_list
                 LEFT JOIN hospital ON hospital.h_code = claim_list.hcode
                 WHERE p_status = '2'
                 GROUP BY claim_list.hcode,hospital.h_name,claim_list.trans_code";
-         $data = DB::select($sql);
-        return view('cmpho.welcome',['data'=>$data]);
+        $data = DB::select($sql);
+        return view('cmpho.opae.index',['data'=>$data]);
     }
 
-    public function process()
+    public function ctmri()
+    {
+        $sql = "SELECT DISTINCT(ct_list.hcode),hospital.h_name,COUNT(ct_list.trans_code) AS total
+                FROM ct_list
+                LEFT JOIN hospital ON hospital.h_code = ct_list.hcode
+                WHERE ct_status = '2'
+                GROUP BY ct_list.hcode,hospital.h_name,ct_list.trans_code";
+        $data = DB::select($sql);
+        return view('cmpho.ctmri.index',['data'=>$data]);
+    }
+
+    public function processOpae()
     {
         $currentDate = date('Y-m-d');
         $hcode = Auth::user()->hcode;
 
         DB::table('claim_list')
-            ->leftjoin('nhso','nhso.nhso_code','claim_list.fs_code')
             ->where('p_status',2)
             ->whereNotNull('trans_code')
             ->update(
                 [
                     'p_status' => 3,
+                    'process_date' => $currentDate
+                ]
+            );
+    }
+
+    public function processCtmri()
+    {
+        $currentDate = date('Y-m-d');
+        $hcode = Auth::user()->hcode;
+
+        DB::table('ct_list')
+            ->where('ct_status',2)
+            ->whereNotNull('trans_code')
+            ->update(
+                [
+                    'ct_status' => 3,
                     'process_date' => $currentDate
                 ]
             );

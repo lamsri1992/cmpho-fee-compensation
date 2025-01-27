@@ -6,14 +6,14 @@
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item">ลูกหนี้ OPAE</li>
+                        <li class="breadcrumb-item">ข้อมูล CT - MRI</li>
                         <li class="breadcrumb-item">
-                            <a href="{{ route('debtor.index') }}">
-                                รายการลูกหนี้
+                            <a href="{{ route('ctmri.index') }}">
+                                ลูกหนี้ CT - MRI
                             </a>
                         </li>
                         <li class="breadcrumb-item active">
-                            ข้อมูลนำเข้ารอตรวจสอบ
+                            รายการรอนำส่ง
                         </li>
                     </ol>
                 </div>
@@ -29,120 +29,96 @@
                         <div class="card-header">
                             <h5 class="card-title">
                                 <i class="fa-solid fa-spinner fa-spin"></i>
-                                ข้อมูลนำเข้ารอตรวจสอบ
+                                รายการรอนำส่ง
                             </h5>
                         </div>
                         <div class="card-body">
                             <table id="nhso_table" class="table table-striped table-bordered nowrap" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">No</th>
-                                        <th class="text-center">VN</th>
                                         <th class="text-center">วันที่</th>
-                                        <th class="text-center">สถานบริการหลัก</th>
+                                        <th class="">สถานบริการหลัก</th>
                                         <th class="text-center">HN</th>
-                                        <th class="text-center">รหัสบริการ</th>
-                                        <th class="text-center">จำนวน</th>
-                                        <th class="text-center">ค่าใช้จ่าย</th>
+                                        <th class="text-center">ค่าใช้จ่ายจริง</th>
+                                        <th class="text-center">Point</th>
+                                        <th class="text-center">ค่าชดเชย</th>
+                                        <th class="text-center">ค่าฉีดสี</th>
                                         <th class="text-center">รวม</th>
-                                        <th class="text-center">อัตราจ่าย</th>
                                         <th class="text-center">สถานะ</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @php $i = 0; @endphp
+                                    @php
+                                        $all_cash = 0;
+                                        $all_payment = 0;
+                                        $all_contrast = 0;
+                                        $all_total = 0;
+                                    @endphp
                                     @foreach ($data as $rs)
-                                    @php $i++; @endphp
-                                    @if (!isset($rs->nhso_code) && !isset($rs->tpuid))
-                                    @php 
-                                        $icon = 'error';
-                                        $text = 'ไม่พบข้อมูลใน NHSO FS-CODE';
-                                        $bg = 'bg-danger';
+                                    @php
+                                        $all_cash += $rs->total_cash;
+                                        $all_payment += $rs->total_payment;
+                                        $all_contrast += $rs->total_contrast;
+                                        $all_total += $rs->total_payment + $rs->total_contrast;
                                     @endphp
-                                    @else
-                                    @php 
-                                        $icon = 'success';
-                                        $text = '';
-                                        $bg = 'bg-success';
-                                    @endphp
-                                    @endif
                                     <tr>
-                                        <td class="text-center">{{ $i }}</td>
-                                        <td class="text-center">
-                                            <a href="{{ route('debtor.show',$rs->vn) }}">
-                                                {{ $rs->vn }}
-                                            </a>
-                                        </td>
                                         <td class="text-center">{{ date("d/m/Y", strtotime($rs->visitdate)) }}</td>
-                                        <td class="text-center">{{ $rs->hospmain." : ".$rs->h_name }}</td>
-                                        <td class="text-center">{{ $rs->hn }}</td>
-                                        <td class="text-center {{ $bg }}">
-                                            @if ($rs->nhso_code != "")
-                                            <a href="#" 
-                                                onclick="
-                                                    Swal.fire({
-                                                        icon: '{{ $icon }}',
-                                                        title: '{{ $rs->nhso_code }}',
-                                                        text: '{{ $rs->nhso_name }}',
-                                                    });
-                                                ">
-                                                {{ $rs->nhso_code }}
+                                        <td class="">{{ $rs->hospmain." : ".$rs->h_name }}</td>
+                                        <td class="text-center">
+                                            <a href="#">
+                                                {{ $rs->hn }}
                                             </a>
-                                            @endif
-                                            @if ($rs->tpuid != "")
-                                            <a href="#" 
-                                                onclick="
-                                                    Swal.fire({
-                                                        icon: '{{ $icon }}',
-                                                        title: '{{ $rs->tpuid }}',
-                                                        text: '{{ $rs->fsn }}',
-                                                    });
+                                        </td>
+                                        <td class="text-end">
+                                            <a href="#" onclick="
+                                                Swal.fire({
+                                                    title: 'HN ' + '{{ $rs->hn }}',
+                                                    text: '{{ $rs->red }}',
+                                                });
                                                 ">
-                                                {{ $rs->tpuid }}
+                                                {{ number_format($rs->total_cash,2) }}
                                             </a>
-                                            @endif
-                                            @if ($rs->nhso_code == "" && $rs->tpuid == "") 
-                                            <a href="#" 
-                                                onclick="
-                                                    Swal.fire({
-                                                        icon: '{{ $icon }}',
-                                                        title: '{{ $rs->fs_code }}',
-                                                        text: '{{ $text }}',
-                                                    });
-                                                ">
-                                                {{ $rs->fs_code }}
-                                            </a>    
-                                            @endif
                                         </td>
-                                        <td class="text-center {{ $bg }}">
-                                            {{ number_format($rs->unit) }}
-                                        </td>
-                                        <td class="text-center {{ $bg }}">
-                                            {{ number_format($rs->total,2) }}
-                                        </td>
-                                        <td class="text-center {{ $bg }}">
-                                            {{ number_format($rs->total * $rs->unit,2) }}
-                                        </td>
-                                        <td class="text-center bg-warning">
-                                            @if (!isset($rs->nhso_code) && !isset($rs->tpuid))
-                                                0.00
-                                            @else
-                                            {{ number_format($rs->total * $rs->unit,2) }}
-                                            @endif
+                                        <td class="text-center">{{ $rs->point }}</td>
+                                        <td class="text-end">{{ number_format($rs->total_payment,2) }}</td>
+                                        <td class="text-end">{{ number_format($rs->total_contrast,2) }}</td>
+                                        <td class="text-end text-success">
+                                            {{ number_format($rs->total_payment + $rs->total_contrast,2) }}
                                         </td>
                                         <td class="text-center">
                                             <a href="#" class="{{ $rs->p_text_color }}"
                                                 onclick="
-                                                Swal.fire({
-                                                    title: '{{ $rs->p_name }}',
-                                                });
-                                            ">
+                                                    Swal.fire({
+                                                        title: '{{ $rs->p_name }}',
+                                                    });
+                                                ">
                                                 {!! $rs->p_icon !!}
                                             </a>
                                         </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td style="text-decoration-line: underline">
+                                            {{ number_format($all_cash,2) }}
+                                        </td>
+                                        <td></td>
+                                        <td style="text-decoration-line: underline">
+                                            {{ number_format($all_payment,2) }}
+                                        </td>
+                                        <td style="text-decoration-line: underline">
+                                            {{ number_format($all_contrast,2) }}
+                                        </td>
+                                        <td style="text-decoration-line: underline" class="text-success">
+                                            {{ number_format($all_total,2) }}
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -154,6 +130,13 @@
 @endsection
 @section('script')
 <script>
+    $(document).ready(function () {
+        $('.select2').select2({
+            // placeholder: 'กรุณาเลือก',
+            width: '100%',
+        });
+    });
+
     new DataTable('#nhso_table', {
         layout: {
             topStart: {
@@ -182,7 +165,7 @@
                             }else{
                                 Swal.fire({
                                 icon: 'warning',
-                                title: 'ยืนยันการส่งข้อมูล ?',
+                                title: 'ยืนยันการส่งข้อมูล ' + count +' รายการ ?',
                                 text: 'ส่งข้อมูลเฉพาะสถานะรอนำส่ง',
                                 showCancelButton: true,
                                 confirmButtonText: "ส่งข้อมูล",
@@ -191,7 +174,7 @@
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     $.ajax({
-                                        url:"{{ route('debtor.send') }}",
+                                        url:"{{ route('ctmri.send') }}",
                                         method:'GET',
                                         success:function(data){
                                             let timerInterval
@@ -255,6 +238,31 @@
             sLengthMenu: '<small>แสดง _MENU_ รายการ</small>',
             sInfoEmpty: '<small>ไม่มีข้อมูล</small>'
         },
+        initComplete: function () {
+            this.api()
+                .columns([1,4])
+                .every(function () {
+                    var column = this;
+                    var select = $(
+                            '<select class="select2" style="width:100%;"><option value="">แสดงทั้งหมด</option></select>'
+                        )
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var val = DataTable.util.escapeRegex($(this).val());
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+                    column
+                        .data()
+                        .unique()
+                        .sort()
+                        .each(function (d, j) {
+                            select.append('<option class="select2" value="' + d + '">' + d +
+                                '</option>');
+                        });
+                });
+        }
     });
 </script>
 @endsection

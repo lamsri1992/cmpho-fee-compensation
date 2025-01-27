@@ -6,6 +6,7 @@
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">เจ้าหนี้ OPAE</li>
                         <li class="breadcrumb-item">
                             <a href="{{ route('creditor.hospital') }}">
                                 ข้อมูลเจ้าหนี้

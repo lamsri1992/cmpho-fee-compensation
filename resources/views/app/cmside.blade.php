@@ -11,12 +11,39 @@
                 <li class="nav-header text-muted">เมนูระบบ</li>
                 <li class="nav-item">
                     <a href="{{ route('dashboard') }}"
-                        class="nav-link {{ request()->is('cmpho') ? 'active':'' }}">
-                        <i class="nav-icon fa-solid fa-clipboard-check"></i>
+                        class="nav-link {{ request()->is('cmpho/dashboard') ? 'active':'' }}">
+                        <i class="nav-icon fa-solid fa-chart-pie"></i>
                         <p>
-                            รายการส่งข้อมูล
+                            Dashboard
                         </p>
                     </a>
+                </li>
+                <li
+                    class="nav-item {{ request()->is('cmpho/opae') || request()->is('cmpho/ctmri') ? 'menu-is-opening menu-open':'' }}">
+                    <a href="#"
+                        class="nav-link {{ request()->is('cmpho/opae') ? 'active':'' }}">
+                        <i class="nav-icon fas fa-spinner fa-spin"></i>
+                        <p>
+                            ข้อมูลรอประมวลผล
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('cmpho.opae.index') }}"
+                                class="nav-link {{ request()->is('cmpho/opae*') ? 'active':'' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>ข้อมูล OPAE</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('cmpho.ctmri.index') }}"
+                                class="nav-link {{ request()->is('cmpho/ct*') ? 'active':'' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>ข้อมูล CT - MRI</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a href="#" data-toggle="modal" data-target="#report"
